@@ -74,6 +74,26 @@ header {
   gap: 10px;
 }
 
+ table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color:  
+ #f2f2f2;
+  }
+
+  th {
+    background-color: #3d3832;
+    color: white;
+  }
 </style>
 </head>
 
@@ -105,8 +125,8 @@ if ($result1->num_rows > 0) {
     echo "<th>Password</th>";
     echo "<th>Name</th>";
     echo "<th>Email</th>";
-    echo "<th>Options</th>";
-    echo "<th>Options</th>";
+    echo "<th></th>";
+    echo "<th></th>";
     echo "</tr>";
     while ($row = $result1->fetch_assoc()) {
         echo "<tr>";
@@ -147,8 +167,8 @@ if ($result2->num_rows > 0) {
     echo "<th>Password</th>";
     echo "<th>Name</th>";
     echo "<th>Email</th>";
-    echo "<th>Options</th>";
-    echo "<th>Options</th>";
+    echo "<th></th>";
+    echo "<th></th>";
     echo "</tr>";
     while ($row = $result2->fetch_assoc()) {
         echo "<tr>";
