@@ -80,8 +80,8 @@ button a {
         <div id="metadata">
           <div id="cover">
             <label for="cover">Cover Image:</label><br>
-            <img src="../images/default.png" alt="Cover Image" id="cover-image"><br>
-            <input type="file" id="cover" name="cover" value="../images/default.png">
+            <img src="../../images/default.png" alt="Cover Image" id="cover-image"><br>
+            <input type="file" id="cover" name="cover" >
           </div>
           <div id="other-metadata">
             <label for="title">Title:</label><br>
@@ -105,7 +105,7 @@ button a {
 
 
 <?php
-require '../connection/session_start.php';
+require '../../connection/session_start.php';
 
 if (isset($_POST['Submit'])) {
     $user_id = $user['id'];

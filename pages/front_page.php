@@ -84,7 +84,7 @@ header {
 </div>
 
 <div id="options">
-  <form method="post" action="../features/add_song.php">
+  <form method="post" action="../features/user/add_song.php">
     <input type="submit" value="Add song">
   </form>
 
@@ -110,7 +110,7 @@ while ($row = $result->fetch_assoc()) {
     echo '<h3>' . $row['title'] . '</h3>';
     echo "<div class='song-option'>";
     echo '<a href="song_info.php?id=' . $row['id'] . '"><button>View</button></a>';
-    echo '<form method="POST" action="../features/remove_song.php">';
+    echo '<form method="POST" action="../features/user/remove_song.php">';
     echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
     echo '<input type="submit" value="Remove">';
     echo '</form>';
