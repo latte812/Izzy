@@ -99,7 +99,7 @@ button a {
         </div>
         <input type="submit" name="Submit" value="Submit">
     </form>
-        <button><a href="../pages/front_page.php">Home</a></button>
+        <button><a href="../../pages/front_page.php">Home</a></button>
 
 </div>
 
