@@ -92,20 +92,21 @@ header {
 </header>
 
 <main>
+<table>
+<h2>Admins</h2>
 <?php
-
-echo "<h2 style='color:#83a598;'>Admin</h2>";
 $sql1 = "SELECT * FROM admins";
 $result1 = $conn->query($sql1);
 
 if ($result1->num_rows > 0) {
-    echo "<table style='background-color: #83a598; padding: 10px; text-align: center; border-collapse: separate; border-spacing: 20px;'>";
     echo "<tr>";
-    echo "<th>id</th>";
-    echo "<th>username</th>";
-    echo "<th>password</th>";
-    echo "<th>name</th>";
-    echo "<th>email</th>";
+    echo "<th>ID</th>";
+    echo "<th>Username</th>";
+    echo "<th>Password</th>";
+    echo "<th>Name</th>";
+    echo "<th>Email</th>";
+    echo "<th>Options</th>";
+    echo "<th>Options</th>";
     echo "</tr>";
     while ($row = $result1->fetch_assoc()) {
         echo "<tr>";
@@ -114,23 +115,30 @@ if ($result1->num_rows > 0) {
         echo "<td>" . $row['password'] . "</td>";
         echo "<td>" . $row['name'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
+        echo "<td>" . "<button>Edit</button>" . "</td>";
+        echo "<td>" . "<button>Delete</button>" . "</td>";
         echo "</tr>";
     }
-    echo "</table>";
 }
+?>
+</table>
 
 
+<table>
+<h2>Users</h2>
+<?php
 $sql2 = "SELECT * FROM users";
 $result2 = $conn->query($sql2);
-echo "<h2 style='color:#8ec87c;'>Users</h2>";
+
 if ($result2->num_rows > 0) {
-    echo "<table style='background-color: #8ec87c; padding: 10px; text-align: center; border-collapse: separate; border-spacing: 20px;'>";
     echo "<tr>";
-    echo "<th>id</th>";
-    echo "<th>username</th>";
-    echo "<th>password</th>";
-    echo "<th>name</th>";
-    echo "<th>email</th>";
+    echo "<th>ID</th>";
+    echo "<th>Username</th>";
+    echo "<th>Password</th>";
+    echo "<th>Name</th>";
+    echo "<th>Email</th>";
+    echo "<th>Options</th>";
+    echo "<th>Options</th>";
     echo "</tr>";
     while ($row = $result2->fetch_assoc()) {
         echo "<tr>";
@@ -139,11 +147,13 @@ if ($result2->num_rows > 0) {
         echo "<td>" . $row['password'] . "</td>";
         echo "<td>" . $row['name'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
+        echo "<td>" . "<button>Edit</button>" . "</td>";
+        echo "<td>" . "<button>Delete</button>" . "</td>";
         echo "</tr>";
     }
 }
-echo "</table>";
 ?>
+</table>
 </main>
 
 </body>

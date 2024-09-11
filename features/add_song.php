@@ -59,9 +59,7 @@ input[type="submit"], button {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color  
+  font-size: 16px; font-weight: bold; transition: background-color  
  0.2s ease-in-out;
   margin-top: 20px;
 }
