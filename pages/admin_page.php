@@ -87,7 +87,7 @@ header {
 
   tr:nth-child(even) {
     background-color:  
- #f2f2f2;
+ #d5c4a1;
   }
 
   th {
