@@ -147,8 +147,17 @@ if ($result2->num_rows > 0) {
         echo "<td>" . $row['password'] . "</td>";
         echo "<td>" . $row['name'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
-        echo "<td>" . "<button>Edit</button>" . "</td>";
-        echo "<td>" . "<button>Delete</button>" . "</td>";
+        echo "<td>";
+        echo "<form action='../features/admin/edit_user_account.php' method='post'>";
+        echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+        echo "<input type='submit' value='Edit'>";
+        echo "</form>";
+        echo "</td>";
+        echo "<td>";
+        echo "<form action='../features/admin/delete_user_account.php' method='post'>";
+        echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+        echo "<input type='submit' value='Delete'>";
+        echo "</form>";
         echo "</tr>";
     }
 }
