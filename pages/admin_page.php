@@ -1,5 +1,5 @@
 <?php
-require '../connection/session_start.php';
+require "../connection/session_start.php";
 ?>
 <!doctype html>
 <html>
@@ -30,9 +30,7 @@ input[type="submit"]:hover, button:hover {
 
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between; align-items: center; text-align: center;
 }
 
 #options {
@@ -105,6 +103,12 @@ header {
 
 <div id="options">
 
+  <form method="post" action="../features/admin/add_admin_account.php">
+    <input type="submit" value="Add Admin">
+  </form>
+  <form method="post" action="../features/admin/add_user_account.php">
+    <input type="submit" value="Add User">
+  </form>
   <form method="post" action="../features/sign_out.php">
     <input type="submit" value="Sign out">
   </form>

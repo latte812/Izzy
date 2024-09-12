@@ -1,15 +1,8 @@
-<?php
-session_start();
-if (isset($_POST['email'])) {
-    $_SESSION['email'] = $_POST['email'];
-}
-?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Fish</title>
-<style>
+    <title>Fish</title> <style>
 body {
   display: flex;
   justify-content: center;
@@ -24,6 +17,10 @@ body {
   background-color: #fbf1c7;
   border: none;
   border-radius: 4px;
+}
+
+.error {
+  color: #cc241d;
 }
 
 input[type=text], input[type=email], input[type=password] {
@@ -49,7 +46,6 @@ button {
   width: 100%;
   opacity: 0.9;
   font-weight: bold;
-
 }
 
 button:hover {
@@ -70,66 +66,67 @@ a:hover {
   font-weight: bold;
 }
 
-
-</style>
-  </head>
+    </style>
+</head>
 <body>
 
 <div class="container">
-<?php
-if (isset($_GET['message'])) {
-    echo "<b>" . $_GET['message'] . "</b>" . "<br/>";
-}
-?>
-
-<br>
 <form method="post">
-
+    <label for="username"><b>Username</b></label> <br>
+<input type="text" placeholder="yourusername" name="username" required><br>
     <label for="email"><b>Email</b></label><br>
-    <input type="email" placeholder="Enter email" name="email" required><br>
+    <input type="email" placeholder="user@example.com" name="email" required><br>
+
+    <label for="name"><b>Name</b></label><br>
+    <input type="text" placeholder="John Doe" name="name" required><br>
 
     <label for="password"><b>Password</b></label><br>
     <input type="password" placeholder="Enter password" name="password" required><br>
 
-    <button type="submit">Sign in</button>
-
-    <p>Don't have an account? <a href="sign_up.php">Sign up</a></p>
+    <button type="submit" name="add_user">Add user account</button>
 
 </form>
 
 <?php
-require '../connection/db_connect.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+require '../../connection/db_connect.php';
+if (isset($_POST['add_user'])) {
     $email = $_POST['email'];
+    $username = $_POST['username'];
+    $name = $_POST['name'];
     $password = $_POST['password'];
 
-    // Determine which table to use based on email
-    $is_admin = (substr($email, -12) === '@admin.local');
-    $table = $is_admin ? 'admins' : 'users';
-
-    // Check if user exist and password matches
-    $stmt = $conn->prepare("SELECT * FROM $table where email = ?");
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    // Check password
-    if ($user && ($password === $user['password'])) {
-        // Redirect to front page
-        $redirect_page = $is_admin ? 'admin_page.php' : 'front_page.php';
-        header('Location: ' . $redirect_page);
-        exit;
-    } else {
-        echo 'Invalid email or password';
+    if ($user) {
+        die('This email is already used');
     }
+
+    // Check if user already exists
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if ($user) {
+        die('This username is already used');
+    }
+
+    $stmt = $conn->prepare("INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $password, $name, $email);
+    $stmt->execute();
+
+    echo "User created successfully";
+
 }
+
 ?>
-
 </div>
-
-
 </body>
 </html>
 

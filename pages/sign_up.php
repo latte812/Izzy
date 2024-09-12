@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $name = $_POST['name'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
 
     // Check if email already exists
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");

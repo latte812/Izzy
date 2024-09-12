@@ -1,3 +1,21 @@
+<?php
+require '../../connection/db_connect.php';
+
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+
+    $stmt = $conn->prepare("SELECT * FROM admins WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $admin = $result->fetch_assoc();
+
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +42,7 @@ body {
   color: #cc241d;
 }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text], input[type=email], input[type=password], input[type=number] {
   width: 89%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -73,23 +91,44 @@ a:hover {
 
 <div class="container">
 <form method="post">
+  
+    <label for="id"><b>Id</b></label> <br>
+  <input type="number" name="id" value="<?php echo isset($admin['id']) ? htmlspecialchars($admin['id']) : ''; ?>"> <br>
     <label for="username"><b>Username</b></label> <br>
-<input type="text" placeholder="yourusername" name="username" required><br>
+  <input type="text" name="username" value="<?php echo isset($admin['username']) ? htmlspecialchars($admin['username']) : ''; ?>"> <br>
     <label for="email"><b>Email</b></label><br>
-    <input type="email" placeholder="user@example.com" name="email" required><br>
+  <input type="email" name="email" value="<?php echo isset($admin['email']) ? htmlspecialchars($admin['email']) : ''; ?>"> <br>
 
     <label for="name"><b>Name</b></label><br>
-    <input type="text" placeholder="John Doe" name="name" required><br>
+  <input type="text" name="name" value="<?php echo isset($admin['name']) ? htmlspecialchars($admin['name']) : ''; ?>"> <br>
 
     <label for="password"><b>Password</b></label><br>
     <input type="password" placeholder="Enter password" name="password" required><br>
 
-    <button type="submit">Change info</button>
+    <button type="submit" name="change_info">Change info</button>
 
 </form>
 
 <?php
-require '../../connection/db_connect.php';
+
+
+if (isset($_POST['change_info'])) {
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $name = $_POST['name'];
+    $password = $_POST['password'];
+
+
+    $stmt = $conn->prepare("UPDATE admins SET username = ?, email = ?, name = ?, password = ? WHERE id = ?");
+    $stmt->bind_param("ssssi", $username, $email, $name, $password, $id);
+
+    if ($stmt->execute()) {
+        echo "Information updated successfully";
+    } else {
+        echo "Error updating record: " . $stmt->error;
+    }
+}
 
 ?>
 </div>
